@@ -1,5 +1,6 @@
 import React from 'react'
 import vid from '../../components/video/Vid.mp4';
+
 import WHL from '../../components/WHL/WHL';
 function WatchLater() {
   const WatchLater=[

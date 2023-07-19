@@ -10,41 +10,48 @@ import { BiUserCircle } from "react-icons/bi";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import { gapi } from "gapi-script";
 import jwt_decode from "jwt-decode";
-import { useDispatch } from "react-redux";
-import  login  from "../../Actions/auth";
+import { useDispatch, useSelector } from "react-redux";
+import  {login}  from "../../Actions/auth";
+import Auth from "../../pages/Auth/Auth";
+// import { render } from "react-dom";
 
 function Navbar({ toggleDrawer }) {
-  const CurrentUser = null;
+  // const CurrentUser = null;
 
   //   const CurrentUser = {
   //     result: {
   //     email: "abzxy50312@gmail.com",
   //     joinedOn: "2222-07-15T09:57:23.489Z",
-  //   },
+  //   }
+  // }; 
+
+  const CurrentUser=useSelector(state=>state.currentUserReducer);
+  console.log(CurrentUser);
 
   useEffect(() => {
     function start() {
       gapi.client.init({
         clientId:
           "136757974709-r4k613ssjaknj7vnuncvfg67lh42ja58.apps.googleusercontent.com",
-        scope: "",
+        scope:null
       });
     }
     gapi.load("client:auth2", start);
   });
-  const dispatch = useDispatch;
+  const dispatch = useDispatch()
 
     const onSuccess = (res) => {
       var userobject = jwt_decode(res.credential);
       const Email = userobject.email;
       console.log(Email);
-      // dispatch(login({email:Email}));
+      dispatch(login({email:Email}));
     };
     const onFailure = (res) => {
       console.log("Failed", res);
     };
 
   return (
+    <>
     <div className="conatianer_Navbar">
       <div className="burger_logo_navbar">
         <div className="burger" on onClick={() => toggleDrawer()}>
@@ -87,16 +94,23 @@ function Navbar({ toggleDrawer }) {
         ) : (
           <>
             <GoogleOAuthProvider clientId="136757974709-r4k613ssjaknj7vnuncvfg67lh42ja58.apps.googleusercontent.com">
-              <GoogleLogin onSuccess={onSuccess} onFailure={onFailure} />
+              <GoogleLogin onSuccess={onSuccess} onFailure={onFailure} 
+              render={(renderProps)=>(
+                <p onClick={renderProps.onClick} className="Auth_Btn">
+                <BiUserCircle  size={22} />
+                <b>Sign In</b>
+                </p>
+              )}
+              />
             </GoogleOAuthProvider>
-            <p className="Auth_Btn">
-              <BiUserCircle size={22} />
-              <b>Sign In</b>
-            </p>
           </>
         )}
       </div>
     </div>
+    {/* {
+      <Auth User = {CurrentUser} />
+    } */}
+    </>
   );
 }
 

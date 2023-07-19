@@ -14,7 +14,7 @@ function WHL({page,videoList}) {
                     page==="History"&&
                     <div className="clear_History_btn">
                     Clear History
-                </div>
+                    </div>
                 }
                 
             </p>

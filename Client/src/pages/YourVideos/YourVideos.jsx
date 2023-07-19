@@ -2,6 +2,7 @@ import React from 'react'
 import Leftsidebar from '../../components/leftsidebar/leftsidebar';
 import ShowVideoGrid from '../../components/ShowVideoGrid/ShowVideoGrid';
 import vid from '../../components/video/Vid.mp4';
+
 import './YourVideos.css'
 function YourVideos() {
   const vids=[

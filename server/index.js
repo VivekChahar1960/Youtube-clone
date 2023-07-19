@@ -8,12 +8,12 @@ import cors from 'cors';
 dontenv.config()
 
 const app=express()
-app.use(cors())
+app.use(cors());
 
 
-app.get('/',(req,res)=>{
+app.get('/',  (req,res)=>{
     res.send("hello")
-})
+});
 
 app.use(bodyParser.json())
 
